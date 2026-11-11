@@ -13,7 +13,7 @@ PWA iPhone de gestion de cartes Pokémon, avec bibliothèque locale et mode invi
 
 ## Limites connues
 
-Le MVP ne connecte pas encore d'API de reconnaissance, de catalogue de cartes, de prix de marché ou d'expertise anti-contrefaçon. Le bouton d'analyse fournit une fiche locale de démonstration (ou une suggestion basée sur le nom de fichier) pour permettre de tester le parcours sans promettre une reconnaissance réelle. Une prochaine version pourra brancher un service validé et documenter ses sources, sa date de collecte et ses coûts.
+Le MVP ne connecte pas encore d'API de reconnaissance, de catalogue de cartes, de prix de marché ou d'expertise anti-contrefaçon. Une photo réelle qui ne peut pas être identifiée est maintenant affichée comme « carte non reconnue » : l'application ne retombe plus silencieusement sur Pikachu et n'invente plus d'année. Les cartes de démonstration et la sélection manuelle sont explicitement présentées comme telles. Une prochaine version pourra brancher un service validé et documenter ses sources, sa date de collecte et ses coûts.
 
 ## Vérification
 
