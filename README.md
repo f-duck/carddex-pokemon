@@ -1,24 +1,30 @@
-# CardDex Pokémon
+# Pokémon de Léon
 
-PWA iPhone de gestion de cartes Pokémon, avec bibliothèque locale et mode invité sans persistance.
+PWA iPad-first de collection de cartes Pokémon, gratuite et local-first.
 
-## MVP livré
+## Fonctionnalités livrées
 
-- Interface responsive inspirée de l'univers Pokémon, icône originale et installation PWA.
-- Photo depuis la caméra ou la photothèque, aperçu local et détection de démonstration.
-- Résultats vérifiables avant ajout : nom, type/énergie, PV, attaque/dégâts, rareté, édition/numéro/année.
-- Bibliothèque locale classable et recherchable, avec données stockées uniquement dans le navigateur du propriétaire.
-- Mode invité entièrement séparé : aucune carte, image ou résultat n'est enregistré.
-- Prix, estimation d'état et authenticité explicitement marqués comme non disponibles dans ce MVP.
+- Scanner depuis la caméra arrière iPad ou la photothèque, avec plusieurs fichiers dans une session.
+- OCR local Tesseract.js, puis recherche multilingue dans le catalogue public TCGdex (français, anglais, espagnol, allemand, italien, portugais et japonais quand les données existent).
+- Résultat à confirmer avec illustration TCGdex, nom, type, PV, attaques/dégâts, rareté, édition, numéro et année de sortie du set.
+- Prix Cardmarket en euros uniquement quand TCGdex fournit une valeur réelle, avec source et date ; aucune valeur inventée.
+- IndexedDB pour le Pokédex, migration de l’ancien localStorage, doublons avec quantité, recherche, tri, filtres, suppression et valeur totale des prix connus.
+- Mode invité clairement séparé : aucune carte invitée n’est ajoutée au Pokédex.
+- Export/restauration JSON du Pokédex pour limiter le risque d’effacement des données Safari.
+- PWA installable sur iPad/iPhone, interface ludique responsive portrait/paysage.
 
-## Limites connues
+## Choix de coût et limites honnêtes
 
-Le MVP ne connecte pas encore d'API de reconnaissance, de catalogue de cartes, de prix de marché ou d'expertise anti-contrefaçon. Une photo réelle qui ne peut pas être identifiée est maintenant affichée comme « carte non reconnue » : l'application ne retombe plus silencieusement sur Pikachu et n'invente plus d'année. Les cartes de démonstration et la sélection manuelle sont explicitement présentées comme telles. Le proxy Cloudflare Worker (`worker/carddex-api.js`) est préparé pour envoyer les photos au scanner sans exposer la clé API dans la PWA ; il ne conserve pas les images. Il faut encore renseigner le secret `PTCG_API_KEY` dans le Worker pour activer les vrais scans.
+Le fournisseur de reconnaissance distant qui renvoyait `PLAN_REQUIRED` n’est plus appelé par la PWA. Le Worker Cloudflare est conservé comme point de statut, mais la reconnaissance distante et les appels IA facturables sont désactivés (`billableCalls: 0`). TCGdex est une API publique sans clé ; Tesseract.js est chargé seulement au moment d’un vrai scan.
 
-## Vérification
+Une photo peut rester non identifiée si le texte est flou, retourné, caché par un reflet ou si l’édition est ambiguë. Dans ce cas, l’application demande une correction manuelle ou laisse le résultat en attente. La détection automatique de plusieurs cartes dans une seule photo n’est pas garantie : pour un résultat fiable, importer une photo par carte ; plusieurs fichiers sont analysés individuellement. L’état et l’authenticité ne sont jamais certifiés par une photographie.
 
-Le site est statique, sans dépendance de build. Vérifier localement avec `python3 -m http.server` puis tester : ajout démo, recherche, tri, bascule invité, absence de persistance invité, et installation depuis Safari iPhone.
+## Tests réalisés
 
-## Activation de la reconnaissance réelle
+- `node --check` sur l’application et le Worker.
+- `git diff --check`.
+- Requête réelle TCGdex en français : Dracaufeu, illustration, PV, attaque, rareté, édition et prix Cardmarket daté récupérés.
+- Parcours navigateur local iPad simulé : accueil, scanner, sélection de test, affichage d’une carte TCGdex et ajout avec prix en euros.
+- Vérification visuelle de la nouvelle interface, des filtres et du panneau export/restauration.
 
-Le Worker attend un secret Cloudflare nommé `PTCG_API_KEY`. Après création et validation d'une clé gratuite sur pokemontcgapi.com, l'ajouter au Worker ; la PWA appellera alors `/api/identify`. Les images sont transmises pour l'analyse puis ne sont pas stockées par le proxy.
+À vérifier sur l’iPad réel : permission caméra Safari, installation depuis « Ajouter à l’écran d’accueil », performance du premier téléchargement Tesseract.js et conservation IndexedDB selon les réglages de stockage Safari.

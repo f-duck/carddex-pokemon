@@ -2,6 +2,7 @@ const ALLOWED_ORIGINS = new Set([
   'https://f-duck.github.io',
   'https://carddex-pokemon.luminousmeadow.chatgpt.site',
   'http://127.0.0.1:4199',
+  'http://localhost:4199',
 ]);
 
 function corsHeaders(request) {
@@ -27,27 +28,8 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === '/api/status' && request.method === 'GET') {
-      return json(request, { ok: true, provider: 'pokemontcgapi.com', recognitionConfigured: Boolean(env.PTCG_API_KEY) });
+      return json(request, { ok: true, provider: 'tcgdex.net', recognition: 'local-ocr', ai: 'disabled', billableCalls: 0 });
     }
-
-    if (url.pathname !== '/api/identify' || request.method !== 'POST') return json(request, { error: 'NOT_FOUND' }, 404);
-    if (!env.PTCG_API_KEY) return json(request, { error: 'RECOGNITION_NOT_CONFIGURED', message: 'La clé de reconnaissance n’est pas encore configurée.' }, 503);
-
-    const incoming = await request.formData();
-    const image = incoming.get('image');
-    if (!(image instanceof File)) return json(request, { error: 'IMAGE_REQUIRED' }, 400);
-    if (image.size > 10 * 1024 * 1024) return json(request, { error: 'IMAGE_TOO_LARGE' }, 413);
-
-    const form = new FormData();
-    form.set('image', image, image.name || 'card.jpg');
-    form.set('top_k', '3');
-    form.set('include', 'index');
-    const upstream = await fetch('https://api.pokemontcgapi.com/v1/vision/identify', {
-      method: 'POST',
-      headers: { 'X-Api-Key': env.PTCG_API_KEY },
-      body: form,
-    });
-    const payload = await upstream.json();
-    return json(request, payload, upstream.status);
+    return json(request, { error: 'NOT_FOUND', message: 'La reconnaissance distante est désactivée. Le scanner gratuit local utilise Tesseract.js et TCGdex.' }, 404);
   },
 };

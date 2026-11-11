@@ -3,43 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#171717" />
+  <meta name="theme-color" content="#185adb" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icon.svg" />
   <link rel="stylesheet" href="styles.css" />
-  <title>CardDex Pokémon</title>
+  <title>Pokémon de Léon</title>
 </head>
 <body>
   <div class="app-shell">
-    <header class="topbar">
-      <a class="brand" href="#top" aria-label="CardDex accueil"><span class="brand-mark">✦</span><span>Card<span>Dex</span></span></a>
-      <div class="mode-pill" id="modePill"><span class="mode-dot"></span><span id="modeLabel">Ma collection</span></div>
-      <button class="icon-btn" id="modeToggle" aria-label="Changer de mode" title="Changer de mode">⇄</button>
-    </header>
-
+    <header class="topbar"><a class="brand" href="#top"><span class="brand-ball"><i></i></span><span>Poké<span>Dex</span></span></a><div class="mode-pill" id="modePill"><span class="mode-dot"></span><span id="modeLabel">Ma collection</span></div><button class="icon-btn" id="modeToggle" aria-label="Changer de mode">⇄</button></header>
     <main id="top">
-      <section class="hero">
-        <div class="hero-copy"><p class="eyebrow">Pokémon TCG · compagnon de collection</p><h1>Votre collection,<br><em>carte après carte.</em></h1><p class="hero-text">Photographiez une carte, vérifiez ses informations, puis gardez votre Pokédex à portée de main.</p><div class="hero-actions"><button class="primary-btn" id="scanHero">＋ Scanner une carte</button><button class="text-btn" id="guestHero">Essayer en invité <span>→</span></button></div></div>
-        <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="card-back"><span>✦</span><small>CARDEX</small></div><div class="spark spark-a">✦</div><div class="spark spark-b">✦</div></div>
-      </section>
-
-      <section class="stats" aria-label="Résumé de la collection"><div><strong id="cardCount">0</strong><span>cartes</span></div><div><strong id="typeCount">0</strong><span>types</span></div><div><strong id="rareCount">0</strong><span>rares+</span></div><div><strong id="valueCount">—</strong><span>valeur estimée</span></div></section>
-
-      <section class="section-heading"><div><p class="eyebrow">Votre bibliothèque</p><h2>Les dernières cartes</h2></div><button class="text-btn" id="showAll">Tout voir <span>→</span></button></section>
-      <section class="toolbar"><label class="search"><span>⌕</span><input id="searchInput" placeholder="Rechercher un Pokémon…" autocomplete="off" /></label><select id="sortSelect" aria-label="Trier"><option value="recent">Récentes</option><option value="name">A → Z</option><option value="type">Par type</option></select></section>
-      <section class="card-grid" id="library" aria-live="polite"></section>
-      <section class="empty-state" id="emptyState"><div class="empty-orb">✦</div><h3>Votre Pokédex commence ici</h3><p>Scannez votre première carte ou essayez le mode invité pour découvrir l'expérience sans rien enregistrer.</p><button class="primary-btn" id="emptyScan">Scanner une carte</button></section>
-
-      <section class="note"><span>ⓘ</span><p><strong>Un MVP honnête.</strong> La reconnaissance automatique, les prix de marché et les indices d'authenticité nécessitent des services spécialisés. CardDex vous montre clairement ce qui est disponible et ce qui doit être vérifié.</p></section>
+      <section class="hero"><div class="hero-copy"><p class="eyebrow">L’aventure de Léon · collection de cartes</p><h1>Attrape-les<br><em>toutes !</em></h1><p class="hero-text">Scanne tes cartes, vérifie leur édition et range-les dans ton Pokédex. Le scan gratuit commence directement sur l’iPad.</p><div class="hero-actions"><button class="primary-btn" id="scanHero">📸 Scanner mes cartes</button><button class="text-btn" id="guestHero">Mode invité <span>→</span></button></div></div><div class="hero-art" aria-hidden="true"><div class="sun"></div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="card-back"><span>★</span><small>POKÉDEX</small></div><div class="spark spark-a">✦</div><div class="spark spark-b">✦</div></div></section>
+      <section class="magic-panel"><div class="magic-icon">✨</div><div><strong>Mes scans magiques du jour</strong><p id="quotaText">Scan gratuit local actif · IA complémentaire désactivée</p></div><div class="quota-badge" id="quotaBadge">GRATUIT</div></section>
+      <section class="stats" aria-label="Résumé de la collection"><div><strong id="cardCount">0</strong><span>cartes</span></div><div><strong id="typeCount">0</strong><span>énergies</span></div><div><strong id="rareCount">0</strong><span>rares+</span></div><div><strong id="valueCount">—</strong><span>valeur estimée</span></div></section>
+      <section class="quick-actions"><button class="quick-card blue" id="quickScan"><b>📸</b><span>Scanner mes cartes</span><small>Une ou plusieurs</small></button><button class="quick-card yellow" id="quickLibrary"><b>📚</b><span>Mon Pokédex</span><small>Ma collection</small></button><button class="quick-card purple" id="quickPending"><b>⏳</b><span>En attente</span><small id="pendingCount">0 carte</small></button><button class="quick-card red" id="quickGuest"><b>🧢</b><span>Mode invité</span><small>Sans sauvegarde</small></button></section>
+      <section class="section-heading"><div><p class="eyebrow">Mon classeur</p><h2>Mes dernières découvertes</h2></div><button class="text-btn" id="showAll">Tout voir <span>→</span></button></section>
+      <section class="toolbar"><label class="search"><span>⌕</span><input id="searchInput" placeholder="Rechercher un Pokémon…" autocomplete="off" /></label><select id="energyFilter" aria-label="Filtrer par énergie"><option value="">Toutes les énergies</option></select><select id="sortSelect" aria-label="Trier"><option value="recent">Récentes</option><option value="name">A → Z</option><option value="type">Par type</option></select></section>
+      <section class="card-grid" id="library" aria-live="polite"></section><section class="empty-state" id="emptyState"><div class="empty-orb">★</div><h3>Ton Pokédex commence ici</h3><p>Scanne ta première carte ou essaie le mode invité pour découvrir l’aventure sans rien enregistrer.</p><button class="primary-btn" id="emptyScan">📸 Scanner une carte</button></section>
+      <section class="pending-panel" id="pendingPanel" hidden><div><p class="eyebrow">Reviens quand tu veux</p><h2>Analyses en attente</h2><p id="pendingDescription">Tes photos restent sur cet iPad. Relance l’analyse seulement quand tu le souhaites.</p></div><button class="primary-btn" id="retryPending">Relancer mes analyses !</button></section>
+      <section class="backup-panel"><div><p class="eyebrow">Ne perds pas tes découvertes</p><h2>Sauvegarder mon Pokédex</h2><p>Exporte tes cartes dans un fichier, puis restaure-le si Safari efface les données locales.</p></div><div class="backup-actions"><button class="secondary-btn" id="exportBtn">⬇ Exporter</button><label class="secondary-btn" for="importInput">⬆ Restaurer<input id="importInput" type="file" accept="application/json" hidden></label></div></section>
+      <section class="note"><span>ⓘ</span><p><strong>Scan gratuit et honnête.</strong> La photo est analysée localement avec l’OCR quand il est disponible, puis comparée au catalogue TCGdex. Un prix n’est affiché que si TCGdex fournit réellement une donnée Cardmarket, avec sa date. L’authenticité et l’état ne sont jamais garantis par une photo.</p></section>
     </main>
-    <nav class="bottom-nav"><a class="active" href="#top"><span>⌂</span>Accueil</a><button id="scanNav"><span>＋</span>Scanner</button><a href="#library"><span>▦</span>Bibliothèque</a><button id="aboutNav"><span>?</span>À propos</button></nav>
+    <nav class="bottom-nav"><a class="active" href="#top"><span>⌂</span>Accueil</a><button id="scanNav"><span>＋</span>Scanner</button><a href="#library"><span>▦</span>Pokédex</a><button id="aboutNav"><span>?</span>Aide</button></nav>
   </div>
-
-  <div class="modal-backdrop" id="scanModal" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="scanTitle"><button class="close-btn" id="closeScan">×</button><p class="eyebrow">Analyse / identification</p><h2 id="scanTitle">Scanner une carte</h2><p class="modal-lead">Choisissez une photo. L'image reste dans votre navigateur. Si aucune carte fiable n'est identifiée, CardDex vous le dira au lieu d'inventer un nom.</p><label class="upload-zone" for="photoInput"><span class="upload-icon">↥</span><strong>Ajouter une photo</strong><small>JPG, PNG · une ou plusieurs cartes</small><input id="photoInput" type="file" accept="image/*" capture="environment" multiple /></label><div id="previewArea" class="preview-area" hidden></div><div class="demo-row"><span>Choisir manuellement :</span><button class="chip" data-demo="charizardex">Charizard ex</button><button class="chip" data-demo="rayquazaex">Rayquaza ex</button><button class="chip" data-demo="pikachu">Pikachu</button><button class="chip" data-demo="dracaufeu">Dracaufeu</button></div><button class="primary-btn full" id="analyzeBtn" disabled>Analyser la photo</button><p class="privacy-line">Mode <strong id="modalMode">collection</strong> · <span id="privacyText">les cartes confirmées seront enregistrées localement</span></p></section></div>
+  <div class="modal-backdrop" id="scanModal" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="scanTitle"><button class="close-btn" id="closeScan">×</button><p class="eyebrow">Expédition dans le Pokédex</p><h2 id="scanTitle">Scanner des cartes</h2><p class="modal-lead">Cadre une carte seule pour le meilleur résultat, ou choisis plusieurs photos. Rien n’est envoyé au fournisseur IA payant : l’analyse gratuite se fait dans ton navigateur.</p><label class="upload-zone" for="photoInput"><span class="upload-icon">📸</span><strong>Prendre une photo ou importer</strong><small>Caméra arrière iPad · JPG, PNG · plusieurs fichiers</small><input id="photoInput" type="file" accept="image/*" capture="environment" multiple /></label><div id="previewArea" class="preview-area" hidden></div><div class="demo-row"><span>Tester le catalogue :</span><button class="chip" data-demo="charizardex">Charizard ex</button><button class="chip" data-demo="rayquazaex">Rayquaza ex</button><button class="chip" data-demo="pikachu">Pikachu</button><button class="chip" data-demo="dracaufeu">Dracaufeu</button></div><button class="primary-btn full" id="analyzeBtn" disabled>✨ Analyser gratuitement</button><p class="privacy-line">Mode <strong id="modalMode">collection</strong> · <span id="privacyText">les cartes confirmées seront enregistrées dans ce Pokédex</span></p></section></div>
   <div class="modal-backdrop" id="detailModal" hidden><section class="modal detail-modal" role="dialog" aria-modal="true"><button class="close-btn" id="closeDetail">×</button><div id="detailContent"></div></section></div>
-  <div class="toast" id="toast" role="status"></div>
-  <script src="app.js?v=3"></script>
-</body>
-</html>
+  <div class="modal-backdrop" id="pendingModal" hidden><section class="modal" role="dialog" aria-modal="true"><button class="close-btn" id="closePending">×</button><p class="eyebrow">Cartes gardées sur l’iPad</p><h2>Mes analyses en attente</h2><div id="pendingList"></div><button class="primary-btn full" id="retryPendingModal">Relancer mes analyses !</button></section></div>
+  <div class="toast" id="toast" role="status"></div><script src="app.js?v=4"></script>
+</body></html>

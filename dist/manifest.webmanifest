@@ -1,12 +1,12 @@
 {
-  "name": "CardDex Pokémon",
-  "short_name": "CardDex",
-  "description": "Organisez et analysez vos cartes Pokémon, en mode collection ou invité.",
+  "name": "Pokémon de Léon",
+  "short_name": "PokéDex Léon",
+  "description": "Le Pokédex ludique de Léon : scanner, vérifier et collectionner ses cartes.",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#f7f4ee",
-  "theme_color": "#171717",
-  "orientation": "portrait",
+  "background_color": "#f8fbff",
+  "theme_color": "#185adb",
+  "orientation": "any",
   "icons": [
     {"src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
   ]
