@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#171717" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>CardDex Pokémon</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="CardDex accueil"><span class="brand-mark">✦</span><span>Card<span>Dex</span></span></a>
+      <div class="mode-pill" id="modePill"><span class="mode-dot"></span><span id="modeLabel">Ma collection</span></div>
+      <button class="icon-btn" id="modeToggle" aria-label="Changer de mode" title="Changer de mode">⇄</button>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy"><p class="eyebrow">Pokémon TCG · compagnon de collection</p><h1>Votre collection,<br><em>carte après carte.</em></h1><p class="hero-text">Photographiez une carte, vérifiez ses informations, puis gardez votre Pokédex à portée de main.</p><div class="hero-actions"><button class="primary-btn" id="scanHero">＋ Scanner une carte</button><button class="text-btn" id="guestHero">Essayer en invité <span>→</span></button></div></div>
+        <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="card-back"><span>✦</span><small>CARDEX</small></div><div class="spark spark-a">✦</div><div class="spark spark-b">✦</div></div>
+      </section>
+
+      <section class="stats" aria-label="Résumé de la collection"><div><strong id="cardCount">0</strong><span>cartes</span></div><div><strong id="typeCount">0</strong><span>types</span></div><div><strong id="rareCount">0</strong><span>rares+</span></div><div><strong id="valueCount">—</strong><span>valeur estimée</span></div></section>
+
+      <section class="section-heading"><div><p class="eyebrow">Votre bibliothèque</p><h2>Les dernières cartes</h2></div><button class="text-btn" id="showAll">Tout voir <span>→</span></button></section>
+      <section class="toolbar"><label class="search"><span>⌕</span><input id="searchInput" placeholder="Rechercher un Pokémon…" autocomplete="off" /></label><select id="sortSelect" aria-label="Trier"><option value="recent">Récentes</option><option value="name">A → Z</option><option value="type">Par type</option></select></section>
+      <section class="card-grid" id="library" aria-live="polite"></section>
+      <section class="empty-state" id="emptyState"><div class="empty-orb">✦</div><h3>Votre Pokédex commence ici</h3><p>Scannez votre première carte ou essayez le mode invité pour découvrir l'expérience sans rien enregistrer.</p><button class="primary-btn" id="emptyScan">Scanner une carte</button></section>
+
+      <section class="note"><span>ⓘ</span><p><strong>Un MVP honnête.</strong> La reconnaissance automatique, les prix de marché et les indices d'authenticité nécessitent des services spécialisés. CardDex vous montre clairement ce qui est disponible et ce qui doit être vérifié.</p></section>
+    </main>
+    <nav class="bottom-nav"><a class="active" href="#top"><span>⌂</span>Accueil</a><button id="scanNav"><span>＋</span>Scanner</button><a href="#library"><span>▦</span>Bibliothèque</a><button id="aboutNav"><span>?</span>À propos</button></nav>
+  </div>
+
+  <div class="modal-backdrop" id="scanModal" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="scanTitle"><button class="close-btn" id="closeScan">×</button><p class="eyebrow">Analyse locale</p><h2 id="scanTitle">Scanner une carte</h2><p class="modal-lead">Choisissez une photo. L'image reste dans votre navigateur et n'est jamais envoyée par ce MVP.</p><label class="upload-zone" for="photoInput"><span class="upload-icon">↥</span><strong>Ajouter une photo</strong><small>JPG, PNG · une ou plusieurs cartes</small><input id="photoInput" type="file" accept="image/*" capture="environment" multiple /></label><div id="previewArea" class="preview-area" hidden></div><div class="demo-row"><span>Pour tester :</span><button class="chip" data-demo="pikachu">Pikachu</button><button class="chip" data-demo="dracaufeu">Dracaufeu</button><button class="chip" data-demo="evoli">Évoli</button></div><button class="primary-btn full" id="analyzeBtn" disabled>Analyser la photo</button><p class="privacy-line">Mode <strong id="modalMode">collection</strong> · <span id="privacyText">les cartes confirmées seront enregistrées localement</span></p></section></div>
+  <div class="modal-backdrop" id="detailModal" hidden><section class="modal detail-modal" role="dialog" aria-modal="true"><button class="close-btn" id="closeDetail">×</button><div id="detailContent"></div></section></div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
